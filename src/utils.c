@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2022 Adrià Giménez Pastor.
+ * Copyright 2018-2023 Adrià Giménez Pastor.
  *
  * This file is part of adriagipas/CD.
  *
@@ -29,6 +29,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "CD.h"
 #include "utils.h"
 
 
@@ -39,6 +40,8 @@
 /**********/
 
 #define isreturn(c) ((c) == '\r' || (c) == '\n')
+
+#define BCD(NUM) ((uint8_t) (((NUM)/10)*0x10 + (NUM)%10))
 
 
 
@@ -185,3 +188,29 @@ CD_gline (
   return 1;
   
 } // end CD_gline
+
+
+CD_Position
+CD_get_position (
+                 const size_t sec_ind
+                 )
+{
+
+  CD_Position ret;
+  int mm,ss,sec,tmp;
+  
+  
+  // Obté minuts, segons i sectors
+  mm= sec_ind/(60*75);
+  tmp= sec_ind%(60*75);
+  ss= tmp/75;
+  sec= tmp%75;
+
+  // Passa a BCD.
+  ret.mm= BCD ( mm );
+  ret.ss= BCD ( ss );
+  ret.sec= BCD ( sec );
+  
+  return ret;
+  
+} // end CD_get_position

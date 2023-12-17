@@ -875,32 +875,6 @@ force_seek (
 } // end try_seek
 
 
-static CD_Position
-get_position (
-              const size_t sec_ind
-              )
-{
-
-  CD_Position ret;
-  int mm,ss,sec,tmp;
-
-
-  // Obté minuts, segons i sectors
-  mm= sec_ind/(60*75);
-  tmp= sec_ind%(60*75);
-  ss= tmp/75;
-  sec= tmp%75;
-
-  // Passa a BCD.
-  ret.mm= BCD ( mm );
-  ret.ss= BCD ( ss );
-  ret.sec= BCD ( sec );
-  
-  return ret;
-  
-} // end get_position
-
-
 static size_t
 mmssff_bcd2long (
                  const uint8_t mm,
@@ -1283,15 +1257,15 @@ get_info (
       tracks[t].indexes= indexes;
       if ( t > 0 )
         tracks[t-1].pos_last_sector=
-          get_position ( CUE(d)->entries[tp->p].time - 1 );
+          CD_get_position ( CUE(d)->entries[tp->p].time - 1 );
       for ( e= tp->p; e != (size_t) (tp->p+tp->N); ++e, ++indexes )
         {
           ep= &(CUE(d)->entries[e]);
           indexes->id= ep->type==INDEX ? BCD ( ep->id ) : 0;
-          indexes->pos= get_position ( ep->time );
+          indexes->pos= CD_get_position ( ep->time );
         }
     }
-  tracks[CUE(d)->NT-1].pos_last_sector= get_position ( CUE(d)->N-1 );
+  tracks[CUE(d)->NT-1].pos_last_sector= CD_get_position ( CUE(d)->N-1 );
 
   // Disk type. (Açò és com un resum)
   switch ( CUE(d)->tracks[0].type )
@@ -1388,7 +1362,7 @@ tell (
       CD_Disc *d
       )
 {
-  return get_position ( CUE(d)->current_sec );
+  return CD_get_position ( CUE(d)->current_sec );
 } // end tell
 
 

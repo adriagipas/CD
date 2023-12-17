@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2022 Adrià Giménez Pastor.
+ * Copyright 2018-2023 Adrià Giménez Pastor.
  *
  * This file is part of adriagipas/CD.
  *
@@ -72,5 +72,11 @@ CD_gline (
           FILE      *f,
           CD_Buffer *b
           );
+
+// Transforma un número de sector a CD_Position
+CD_Position
+CD_get_position (
+                 const size_t sec_ind
+                 );
 
 #endif // __CD_UTILS_H__

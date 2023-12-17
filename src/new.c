@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2022 Adrià Giménez Pastor.
+ * Copyright 2018-2023 Adrià Giménez Pastor.
  *
  * This file is part of adriagipas/CD.
  *
@@ -31,6 +31,7 @@
 #include "utils.h"
 
 #include "cue.h"
+#include "iso.h"
 
 
 
@@ -85,6 +86,7 @@ CD_disc_new (
 
   ext= get_ext ( fn );
   if ( !strcmp ( ext, "CUE" ) ) return CD_cue_disc_new ( fn, err );
+  else if ( !strcmp ( ext, "ISO" ) ) return CD_iso_disc_new ( fn, err );
   else
     {
       CD_msgerror ( err, "unknown extension" );
