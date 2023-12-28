@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2022 Adrià Giménez Pastor.
+ * Copyright 2018-2023 Adrià Giménez Pastor.
  *
  * This file is part of adriagipas/CD.
  *
@@ -1255,6 +1255,10 @@ get_info (
       tracks[t].id= BCD ( t+1 );
       tracks[t].nindexes= tp->N;
       tracks[t].indexes= indexes;
+      tracks[t].is_audio= (tp->type == AUDIO);
+      tracks[t].audio_four_channel= false;
+      tracks[t].audio_preemphasis= false;
+      tracks[t].digital_copy_allowed= true; // Per què no?
       if ( t > 0 )
         tracks[t-1].pos_last_sector=
           CD_get_position ( CUE(d)->entries[tp->p].time - 1 );

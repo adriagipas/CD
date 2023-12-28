@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2022 Adrià Giménez Pastor.
+ * Copyright 2017-2023 Adrià Giménez Pastor.
  *
  * This file is part of adriagipas/CD.
  *
@@ -71,6 +71,10 @@ typedef struct
   CD_IndexInfo *indexes;
   CD_Position   pos_last_sector; // Posició absoluta de l'últim sector
         			 // del track.
+  bool          is_audio;
+  bool          audio_four_channel;
+  bool          audio_preemphasis;
+  bool          digital_copy_allowed;
   
 } CD_TrackInfo;
 

@@ -378,6 +378,10 @@ get_info (
   ret->ntracks= 1;
   ret->tracks= tracks;
   tracks[0].id= BCD(1);
+  tracks[0].is_audio= false;
+  tracks[0].audio_four_channel= false;
+  tracks[0].audio_preemphasis= false;
+  tracks[0].digital_copy_allowed= true; // Per què no?
   tracks[0].nindexes= 2;
   tracks[0].indexes= indexes;
   indexes[0].id= BCD(0);
